@@ -6,6 +6,7 @@ import felipe.model.Receita;
 import felipe.service.ControleFinanceiro;
 
 import javax.swing.*;
+import java.awt.*;
 import java.time.LocalDate;
 
 public class TelaPrincipal extends JFrame {
@@ -32,19 +33,48 @@ public class TelaPrincipal extends JFrame {
 
         btnReceita.addActionListener(e -> {
 
-            Receita receita = new Receita(
-                    "Salário",
-                    5000.0,
-                    LocalDate.now(),
-                    CategoriaReceita.SALARIO
-            );
+            JTextField descricaoField = new JTextField(15);
+            JTextField valorField = new JTextField(15);
 
-            controle.adicionarReceita(receita);
+            JComboBox<CategoriaReceita> categoriaCombo =
+                    new JComboBox<>(CategoriaReceita.values());
 
-            JOptionPane.showMessageDialog(
+            JPanel panel = new JPanel(new GridLayout(0, 2, 5, 5));
+
+            panel.add(new JLabel("Descrição:"));
+            panel.add(descricaoField);
+
+            panel.add(new JLabel("Valor:"));
+            panel.add(valorField);
+
+            panel.add(new JLabel("Categoria:"));
+            panel.add(categoriaCombo);
+
+
+            int result = JOptionPane.showConfirmDialog(
                     this,
-                    "Receita adicionada!"
+                    panel,
+                    "Nova Receita",
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.PLAIN_MESSAGE
             );
+
+            if (result == JOptionPane.OK_OPTION) {
+
+                String descricao = descricaoField.getText();
+                String valor = valorField.getText();
+                CategoriaReceita categoria =
+                        (CategoriaReceita) categoriaCombo.getSelectedItem();
+
+                Receita receita =  new Receita(descricao,Double.parseDouble(valor), LocalDate.now(), categoria);
+
+                controle.adicionarReceita(receita);
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Receita adicionada!"
+                );
+            }
         });
 
         btnSaldo.addActionListener(e ->

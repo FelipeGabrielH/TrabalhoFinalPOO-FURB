@@ -13,8 +13,8 @@ public class CsvRepository {
     public void insertDespesas(Despesa despesa){
 
     }
-    public List<Receita> findAllReceita(){
-    }
-    public List<Despesa> findAllDepesa(){
-    }
+    //public List<Receita> findAllReceita(){
+    //}
+    //public List<Despesa> findAllDepesa(){
+    //}
 }
