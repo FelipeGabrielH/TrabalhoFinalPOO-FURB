@@ -7,8 +7,8 @@ import java.nio.file.Paths;
 
 
 public class DatabaseConfig {
-    public static final String PATH_DATABASE_RECEITAS = "/database/receitas.csv";
-    public static final String PATH_DATABASE_DESPESAS = "/database/despesas.csv";
+    public static final String PATH_DATABASE_RECEITAS = "src/main/resources/database/receitas.csv";
+    public static final String PATH_DATABASE_DESPESAS = "src/main/resources/database/despesas.csv";
 
     public static void inicializarBanco(){
         try{
@@ -25,7 +25,7 @@ public class DatabaseConfig {
             }
             if(Files.notExists(pathDespesas)){
                 Files.createFile(pathDespesas);
-                Files.writeString(pathReceitas, "id,Desc,Valoritos,DataCriacao,Categoria");
+                Files.writeString(pathDespesas, "id,Desc,Valoritos,DataCriacao,Categoria");
             }
 
         }catch (FileAlreadyExistsException existsException){
