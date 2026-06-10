@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
 import java.util.List;
 
 public class CsvRepository extends DatabaseConfig {
@@ -17,7 +18,8 @@ public class CsvRepository extends DatabaseConfig {
         String descricao = receita.getDescricao();
         String valor = String.format("%s",receita.getValor());
         CategoriaReceita categoriaReceita = receita.getReceita();
-        CharSequence charSequence = descricao+";"+valor+";"+categoriaReceita+"\n";
+        LocalDate localDate = receita.getData();
+        CharSequence charSequence = descricao+";"+valor+";"+categoriaReceita+ ";"+localDate+"\n";
         try {
             Files.writeString(path, charSequence,StandardOpenOption.APPEND);
 
@@ -29,8 +31,13 @@ public class CsvRepository extends DatabaseConfig {
     public void insertDespesas(Despesa despesa){
 
     }
-    //public List<Receita> findAllReceita(){
-    //    Path path = Paths.get(PATH_DATABASE_RECEITAS);
+ //   public List<Receita> findAllReceita(){
+//        Path path = Paths.get(PATH_DATABASE_RECEITAS);
+//        try{
+
+//        }catch (Exception e){
+
+    //    }
     //}
     //public List<Despesa> findAllDepesa(){
     //}
