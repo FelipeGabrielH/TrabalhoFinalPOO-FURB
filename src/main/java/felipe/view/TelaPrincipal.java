@@ -65,7 +65,7 @@ public class TelaPrincipal extends JFrame {
                 String valor = valorField.getText();
                 CategoriaReceita categoria =
                         (CategoriaReceita) categoriaCombo.getSelectedItem();
-
+                System.out.println("LOCAL DATE NOW "+LocalDate.now());
                 Receita receita =  new Receita(descricao,Double.parseDouble(valor), LocalDate.now(), categoria);
 
                 controle.adicionarReceita(receita);

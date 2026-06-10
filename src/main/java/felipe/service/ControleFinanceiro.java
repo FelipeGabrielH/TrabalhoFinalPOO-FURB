@@ -2,19 +2,22 @@ package felipe.service;
 
 import felipe.model.Despesa;
 import felipe.model.Receita;
+import felipe.repository.CsvRepository;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ControleFinanceiro {
+public class ControleFinanceiro extends CsvRepository{
 
     private List<Receita> receitas = new ArrayList<>();
     private List<Despesa> despesas = new ArrayList<>();
+    private CsvRepository csvConfig = new CsvRepository();
+
 
     public void adicionarReceita(Receita receita) {
         receitas.add(receita);
-
+        csvConfig.insertReceitas(receita);
     }
 
     public void adicionarDespesa(Despesa despesa) {
