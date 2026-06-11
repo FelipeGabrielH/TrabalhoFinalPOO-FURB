@@ -53,7 +53,7 @@ public class ControleFinanceiro extends CsvRepository{
     }
 
     public List<Receita> listarReceitas() {
-        return receitas;
+        return csvConfig.findAllReceita();
     }
 
     public List<Despesa> listarDespesas() {

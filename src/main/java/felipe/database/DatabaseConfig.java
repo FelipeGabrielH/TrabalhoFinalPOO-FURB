@@ -21,11 +21,11 @@ public class DatabaseConfig {
 
             if(Files.notExists(pathReceitas)){
                 Files.createFile(pathReceitas);
-                Files.writeString(pathReceitas, "id,Desc,Valoritos,DataCriacao,Categoria");
+                Files.writeString(pathReceitas, "Desc;Valoritos;DataCriacao;Categoria");
             }
             if(Files.notExists(pathDespesas)){
                 Files.createFile(pathDespesas);
-                Files.writeString(pathDespesas, "id,Desc,Valoritos,DataCriacao,Categoria");
+                Files.writeString(pathDespesas, "id;Desc;Valoritos;DataCriacao;Categoria");
             }
 
         }catch (FileAlreadyExistsException existsException){
