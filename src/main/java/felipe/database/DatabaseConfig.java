@@ -1,37 +1,46 @@
 package felipe.database;
 
-import java.nio.file.FileAlreadyExistsException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
+import java.io.File;
+import java.io.FileWriter;
 
 public class DatabaseConfig {
     public static final String PATH_DATABASE_RECEITAS = "src/main/resources/database/receitas.csv";
     public static final String PATH_DATABASE_DESPESAS = "src/main/resources/database/despesas.csv";
 
-    public static void inicializarBanco(){
-        try{
-            Path pathDespesas = Paths.get(PATH_DATABASE_DESPESAS);
-            Path pathReceitas = Paths.get(PATH_DATABASE_RECEITAS);
+    public static void inicializarBanco() {
+        try {
+            // Instancia os objetos File para os arquivos
+            File arquivoReceitas = new File(PATH_DATABASE_RECEITAS);
+            File arquivoDespesas = new File(PATH_DATABASE_DESPESAS);
 
-            Files.createDirectories(pathDespesas.getParent());
-            Files.createDirectories(pathReceitas.getParent());
-
-
-            if(Files.notExists(pathReceitas)){
-                Files.createFile(pathReceitas);
-                Files.writeString(pathReceitas, "Desc;Valoritos;DataCriacao;Categoria");
+            // Cria as pastas (directories) se elas não existirem
+            if (arquivoReceitas.getParentFile() != null) {
+                arquivoReceitas.getParentFile().mkdirs();
             }
-            if(Files.notExists(pathDespesas)){
-                Files.createFile(pathDespesas);
-                Files.writeString(pathDespesas, "id;Desc;Valoritos;DataCriacao;Categoria");
+            if (arquivoDespesas.getParentFile() != null) {
+                arquivoDespesas.getParentFile().mkdirs();
             }
 
-        }catch (FileAlreadyExistsException existsException){
-            throw new RuntimeException("Banco de dados ja existe graças a Deus");
-        }catch (Exception e){
-            throw new RuntimeException("Problema ao criar o banco de dados que nao e um banco de dados");
+            // Verifica e cria o arquivo de Receitas com o cabeçalho
+            if (!arquivoReceitas.exists()) {
+                arquivoReceitas.createNewFile();
+                // Escreve o cabeçalho inicial
+                try (FileWriter fw = new FileWriter(arquivoReceitas)) {
+                    fw.write("Desc;Valoritos;DataCriacao;Categoria\n");
+                }
+            }
+
+            // Verifica e cria o arquivo de Despesas com o cabeçalho
+            if (!arquivoDespesas.exists()) {
+                arquivoDespesas.createNewFile();
+                // Escreve o cabeçalho inicial
+                try (FileWriter fw = new FileWriter(arquivoDespesas)) {
+                    fw.write("id;Desc;Valoritos;DataCriacao;Categoria\n");
+                }
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Problema ao criar o banco de dados que nao e um banco de dados", e);
         }
     }
 }

@@ -8,6 +8,7 @@ import felipe.service.ControleFinanceiro;
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
+import java.util.List;
 
 public class TelaPrincipal extends JFrame {
 
@@ -22,12 +23,12 @@ public class TelaPrincipal extends JFrame {
         setLocationRelativeTo(null);
 
         JButton btnReceita = new JButton("Adicionar Receita");
-        JButton btnSaldo = new JButton("Consultar Saldo");
+        JButton btnMostrarReceita = new JButton("Consultar Receitas");
 
         JPanel painel = new JPanel();
 
         painel.add(btnReceita);
-        painel.add(btnSaldo);
+        painel.add(btnMostrarReceita);
 
         add(painel);
 
@@ -77,11 +78,28 @@ public class TelaPrincipal extends JFrame {
             }
         });
 
-        btnSaldo.addActionListener(e ->
-                JOptionPane.showMessageDialog(
-                        this,
-                        "Saldo: R$ " + controle.saldoAtual()
-                )
-        );
+        btnMostrarReceita.addActionListener(e -> {
+
+            List<Receita> receitas = controle.listarReceitas();
+
+            StringBuilder mensagem = new StringBuilder();
+
+            for (Receita receita : receitas) {
+                mensagem.append("Descrição: ")
+                        .append(receita.getDescricao())
+                        .append("\nValor: R$ ")
+                        .append(receita.getValor())
+                        .append("\nCategoria: ")
+                        .append(receita.getReceita())
+                        .append("\nData: ")
+                        .append(receita.getData())
+                        .append("\n\n");
+            }
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    mensagem.toString()
+            );
+        });
     }
 }
