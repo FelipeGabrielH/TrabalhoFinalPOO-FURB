@@ -69,7 +69,7 @@ public class ControleFinanceiro extends DatabaseConfig{
     	String linha = receita.getDescricao() + ";" +
     			receita.getValor() + ";" +
     			receita.getData() + ";" +
-    			receita.getReceita();
+    			receita.getCategoria();
 
     	FileWriter fw = new FileWriter(arquivo, true);
     	BufferedWriter bw = new BufferedWriter(fw); 
@@ -86,7 +86,7 @@ public class ControleFinanceiro extends DatabaseConfig{
         String linha = despesa.getDescricao() + ";" +
         		despesa.getValor() + ";" +
         		despesa.getData() + ";" +
-        		despesa.getDespesa();
+        		despesa.getCategoria();
 
         FileWriter fw = new FileWriter(arquivo, true);
         BufferedWriter bw = new BufferedWriter(fw);

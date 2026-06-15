@@ -234,7 +234,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     					.append("\nValor: R$ ")
     					.append(receita.getValor())
     					.append("\nCategoria: ")
-    					.append(receita.getReceita())
+    					.append(receita.getCategoria())
     					.append("\nData: ")
     					.append(receita.getData().format(formatter))
     					.append("\n\n");
@@ -257,7 +257,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         				.append("\nValor: R$ ")
         				.append(despesa.getValor())
         				.append("\nCategoria: ")
-        				.append(despesa.getDespesa())
+        				.append(despesa.getCategoria())
         				.append("\nData: ")
         				.append(despesa.getData().format(formatter))
         				.append("\n\n");
@@ -275,27 +275,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     		JOptionPane.showMessageDialog(this,"Não há despesas cadastradas");
     	} else {
     		for (Lancamento lancamento : lancamentos) {
-    			if (lancamento instanceof Receita receita) {
     				mensagem.append("Descrição: ")
-    				.append(receita.getDescricao())
+    				.append(lancamento.getDescricao())
     				.append("\nValor: R$ ")
-    				.append(receita.getValor())
+    				.append(lancamento.getValor())
     				.append("\nCategoria: ")
-    				.append (receita.getReceita())
+    				.append (lancamento.getCategoria())
     				.append("\nData: ")
-    				.append(receita.getData().format(formatter))
+    				.append(lancamento.getData().format(formatter))
     				.append("\n\n");
-    			} else if (lancamento instanceof Despesa despesa) {
-    				mensagem.append("Descrição: ")
-    				.append(despesa.getDescricao())
-    				.append("\nValor: R$ ")
-    				.append(despesa.getValor())
-    				.append("\nCategoria: ")
-    				.append (despesa.getDespesa())
-    				.append("\nData: ")
-    				.append(despesa.getData().format(formatter))
-    				.append("\n\n");
-    			}
     		}
     		JOptionPane.showMessageDialog(this,mensagem.toString());
     	}

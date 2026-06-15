@@ -9,7 +9,4 @@ public class Despesa extends Lancamento{
         super(descricao,valor,data, categoria);
     }
 
-    public CategoriaDespesa getDespesa() {
-        return despesa;
-    }
 }

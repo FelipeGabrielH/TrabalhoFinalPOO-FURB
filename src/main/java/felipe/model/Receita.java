@@ -9,7 +9,4 @@ public class Receita extends Lancamento {
         super(descricao, valor, data, categoria);
     }
 
-    public CategoriaReceita getReceita() {
-        return receita;
-    }
 }
