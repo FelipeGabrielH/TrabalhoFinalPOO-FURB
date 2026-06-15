@@ -10,73 +10,72 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 
 public class ControleFinanceiro extends DatabaseConfig{
-    private double saldoAtual;
-    private double saldoTotal;
-    private List<Receita> receitas = new ArrayList<>();
+	private double saldoAtual;
+	private double saldoTotal;
+	private List<Receita> receitas = new ArrayList<>();
     private List<Despesa> despesas = new ArrayList<>();
-
+	
     public double getSaldoAtual() {
-        return saldoAtual;
-    }
+		return saldoAtual;
+	}
 
-    public void setSaldoAtual() {
+	public void setSaldoAtual() {
         List<Receita> receitasAtual = listarReceitas();
         double somatorio = 0;
         for (Receita r : receitasAtual) {
-            if(!r.getData().isAfter(LocalDate.now())) {
+        	if(!r.getData().isAfter(LocalDate.now())) {
                 somatorio += r.getValor();
-            }
+        	}
         }
 
         List<Despesa> despesasAtual = listarDespesas();
         double diminuitorio = 0;
         for (Despesa d : despesasAtual) {
-            if(!d.getData().isAfter(LocalDate.now())) {
-                diminuitorio += d.getValor();
-            }
+        	if(!d.getData().isAfter(LocalDate.now())) {
+        		diminuitorio += d.getValor();
+        	}
         }
-
+        
         saldoAtual = somatorio - diminuitorio;
-    }
+	}
 
-    public double getSaldoTotal() {
-        return saldoTotal;
-    }
+	public double getSaldoTotal() {
+		return saldoTotal;
+	}
 
-    public void setSaldoTotal() {
-        List<Receita> receitasAtual = listarReceitas();
+	public void setSaldoTotal() {
+		List<Receita> receitasAtual = listarReceitas();
         double somatorio = 0;
         for (Receita r : receitasAtual) {
             somatorio += r.getValor();
-
+        
         }
 
         List<Despesa> despesasAtual = listarDespesas();
         double diminuitorio = 0;
         for (Despesa d : despesasAtual) {
-            diminuitorio += d.getValor();
+        	diminuitorio += d.getValor();
         }
-
+        
         saldoTotal = somatorio - diminuitorio;
-    }
+	}
 
     public void adicionarReceita(Receita receita) throws IOException {
-        receitas.add(receita);
-        File arquivo = new File(PATH_DATABASE_RECEITAS);
+    	receitas.add(receita);
+    	File arquivo = new File(PATH_DATABASE_RECEITAS);
 
-        String linha = receita.getDescricao() + ";" +
-                receita.getValor() + ";" +
-                receita.getData() + ";" +
-                receita.getReceita();
+    	String linha = receita.getDescricao() + ";" +
+    			receita.getValor() + ";" +
+    			receita.getData() + ";" +
+    			receita.getCategoria();
 
-        FileWriter fw = new FileWriter(arquivo, true);
-        BufferedWriter bw = new BufferedWriter(fw);
-        bw.write(linha);
-        bw.newLine();
-        bw.close();
+    	FileWriter fw = new FileWriter(arquivo, true);
+    	BufferedWriter bw = new BufferedWriter(fw); 
+    	bw.write(linha);
+    	bw.newLine();
+    	bw.close();
     }
 
     public void adicionarDespesa(Despesa despesa) throws IOException {
@@ -85,20 +84,20 @@ public class ControleFinanceiro extends DatabaseConfig{
         File arquivo = new File(PATH_DATABASE_DESPESAS);
 
         String linha = despesa.getDescricao() + ";" +
-                despesa.getValor() + ";" +
-                despesa.getData() + ";" +
-                despesa.getDespesa();
+        		despesa.getValor() + ";" +
+        		despesa.getData() + ";" +
+        		despesa.getCategoria();
 
         FileWriter fw = new FileWriter(arquivo, true);
         BufferedWriter bw = new BufferedWriter(fw);
 
-        bw.write(linha);
-        bw.newLine();
-        bw.close();
-    }
+        	bw.write(linha);
+        	bw.newLine();
+        	bw.close();
+        }
 
     public List<Receita> listarReceitas() {
-        File arquivo = new File(PATH_DATABASE_RECEITAS);
+    	File arquivo = new File(PATH_DATABASE_RECEITAS);
         List<Receita> receitas = new ArrayList<>();
 
         try (FileReader fr = new FileReader(arquivo);
@@ -119,7 +118,7 @@ public class ControleFinanceiro extends DatabaseConfig{
                         dados[0],
                         Double.parseDouble(dados[1]),
                         LocalDate.parse(dados[2]),
-                        CategoriaReceita.valueOf(dados[3])
+                        dados[3]
                 );
                 receitas.add(receita);
             }
@@ -131,7 +130,7 @@ public class ControleFinanceiro extends DatabaseConfig{
     }
 
     public List<Despesa> listarDespesas() {
-        File arquivo = new File(PATH_DATABASE_DESPESAS);
+    	File arquivo = new File(PATH_DATABASE_DESPESAS);
         List<Despesa> despesas = new ArrayList<>();
 
         try (FileReader fr = new FileReader(arquivo);
@@ -152,7 +151,7 @@ public class ControleFinanceiro extends DatabaseConfig{
                         dados[0],
                         Double.parseDouble(dados[1]),
                         LocalDate.parse(dados[2]),
-                        CategoriaDespesa.valueOf(dados[3])
+                        dados[3]
                 );
                 despesas.add(despesa);
             }
@@ -162,43 +161,16 @@ public class ControleFinanceiro extends DatabaseConfig{
             throw new RuntimeException("O banco de dados despesas está com defeito", e);
         }
     }
+    
+    // NÃO FINALIZADO
+    // Utilizar o código da última aula para ordenar
+    // (Não salvei)
     public List<Lancamento> listarLancamentos() {
-
-        List<Lancamento> lancamentos = new ArrayList<>();
-
-        lancamentos.addAll(listarReceitas());
+    	List<Lancamento> lancamentos = new ArrayList<Lancamento>(listarReceitas());
         lancamentos.addAll(listarDespesas());
-
+        
         lancamentos.sort(Comparator.comparing(Lancamento::getData));
-
-        List<Lancamento> resultado = new ArrayList<>();
-
-        LocalDate dataAtual = null;
-        double saldoDia = 0;
-
-        for (Lancamento lancamento : lancamentos) {
-
-            if (dataAtual == null) {
-                dataAtual = lancamento.getData();
-            }
-
-            if (!lancamento.getData().equals(dataAtual)) {
-
-                resultado.add(new SaldoDoDia(dataAtual, saldoDia));
-
-                dataAtual = lancamento.getData();
-                saldoDia = 0;
-            }
-
-            resultado.add(lancamento);
-
-            saldoDia += lancamento.getValor();
-        }
-
-        if (dataAtual != null) {
-            resultado.add(new SaldoDoDia(dataAtual, saldoDia));
-        }
-
-        return resultado;
+        
+        return lancamentos;
     }
 }
