@@ -5,10 +5,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import felipe.model.ControleFinanceiro;
-import felipe.model.Despesa;
-import felipe.model.Lancamento;
-import felipe.model.Receita;
+import felipe.model.*;
 
 /**
  *
@@ -259,23 +256,36 @@ public class TelaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"Não há despesas cadastradas");
         } else {
             for (Lancamento lancamento : lancamentos) {
-                if (lancamento instanceof Receita receita) {
+
+                if (lancamento instanceof SaldoDoDia) {
+
+                    mensagem.append("=================================\n")
+                            .append("SALDO DO DIA ")
+                            .append(lancamento.getData().format(formatter))
+                            .append(": R$ ")
+                            .append(String.format("%.2f", lancamento.getValor()))
+                            .append("\n=================================\n\n");
+
+                } else if (lancamento instanceof Receita receita) {
+
                     mensagem.append("Descrição: ")
                             .append(receita.getDescricao())
                             .append("\nValor: R$ ")
                             .append(receita.getValor())
                             .append("\nCategoria: ")
-                            .append (receita.getReceita())
+                            .append(receita.getReceita())
                             .append("\nData: ")
                             .append(receita.getData().format(formatter))
                             .append("\n\n");
+
                 } else if (lancamento instanceof Despesa despesa) {
+
                     mensagem.append("Descrição: ")
                             .append(despesa.getDescricao())
                             .append("\nValor: R$ ")
                             .append(despesa.getValor())
                             .append("\nCategoria: ")
-                            .append (despesa.getDespesa())
+                            .append(despesa.getDespesa())
                             .append("\nData: ")
                             .append(despesa.getData().format(formatter))
                             .append("\n\n");

@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 public class ControleFinanceiro extends DatabaseConfig{
     private double saldoAtual;
@@ -161,16 +162,43 @@ public class ControleFinanceiro extends DatabaseConfig{
             throw new RuntimeException("O banco de dados despesas está com defeito", e);
         }
     }
-
-    // NÃO FINALIZADO
-    // Utilizar o código da última aula para ordenar
-    // (Não salvei)
     public List<Lancamento> listarLancamentos() {
-        List<Lancamento> lancamentos = new ArrayList<Lancamento>(listarReceitas());
+
+        List<Lancamento> lancamentos = new ArrayList<>();
+
+        lancamentos.addAll(listarReceitas());
         lancamentos.addAll(listarDespesas());
 
         lancamentos.sort(Comparator.comparing(Lancamento::getData));
 
-        return lancamentos;
+        List<Lancamento> resultado = new ArrayList<>();
+
+        LocalDate dataAtual = null;
+        double saldoDia = 0;
+
+        for (Lancamento lancamento : lancamentos) {
+
+            if (dataAtual == null) {
+                dataAtual = lancamento.getData();
+            }
+
+            if (!lancamento.getData().equals(dataAtual)) {
+
+                resultado.add(new SaldoDoDia(dataAtual, saldoDia));
+
+                dataAtual = lancamento.getData();
+                saldoDia = 0;
+            }
+
+            resultado.add(lancamento);
+
+            saldoDia += lancamento.getValor();
+        }
+
+        if (dataAtual != null) {
+            resultado.add(new SaldoDoDia(dataAtual, saldoDia));
+        }
+
+        return resultado;
     }
 }
