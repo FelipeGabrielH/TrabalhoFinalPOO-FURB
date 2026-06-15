@@ -1,4 +1,4 @@
-package felipe.database;
+package felipe.model;
 
 import java.io.File;
 import java.io.FileWriter;

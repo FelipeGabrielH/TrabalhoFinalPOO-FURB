@@ -14,3 +14,4 @@ public class Receita extends Lancamento {
         return receita;
     }
 }
+

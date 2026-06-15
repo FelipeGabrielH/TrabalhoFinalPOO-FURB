@@ -11,7 +11,7 @@ public class Despesa extends Lancamento{
     }
 
 
-    public CategoriaDespesa getReceita() {
+    public CategoriaDespesa getDespesa() {
         return despesa;
     }
 }
