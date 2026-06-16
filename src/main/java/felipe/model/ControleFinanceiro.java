@@ -80,7 +80,6 @@ public class ControleFinanceiro extends DatabaseConfig{
 
     public void adicionarDespesa(Despesa despesa) throws IOException {
         despesas.add(despesa);
-        // Copiado e colado (Verificar se não restou algo das receitas)
         File arquivo = new File(PATH_DATABASE_DESPESAS);
 
         String linha = despesa.getDescricao() + ";" +
@@ -178,15 +177,17 @@ public class ControleFinanceiro extends DatabaseConfig{
 
         for (Lancamento lancamento : lancamentos) {
 
+        	//Define a dataAtual para a primeira data da lista
             if (dataAtual == null) {
                 dataAtual = lancamento.getData();
             }
 
+            //Sempre que a data do lançamento for diferente da data do lançamento anterior,
+            //É criado o saldo do dia e a dataAtual é atualizada.
             if (!lancamento.getData().equals(dataAtual)) {
 
                 resultado.add(new SaldoDoDia(dataAtual, saldoDia, "SALDO DO DIA"));
 
-                saldoDia = 0;
                 dataAtual = lancamento.getData();
             }
 
@@ -195,6 +196,7 @@ public class ControleFinanceiro extends DatabaseConfig{
             saldoDia += lancamento.getValor();
         }
 
+        //Adiciona o lançamento normalmente
         if (dataAtual != null) {
             resultado.add(new SaldoDoDia(dataAtual, saldoDia, "SALDO DO DIA"));
         }

@@ -1,13 +1,10 @@
 package felipe.view;
 
-import felipe.model.CategoriaDespesa;
 import felipe.model.ControleFinanceiro;
 import felipe.model.Despesa;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 import javax.swing.JOptionPane;
 
 /*
@@ -56,14 +53,14 @@ public class DespesaForm extends javax.swing.JFrame {
         campoData = new javax.swing.JTextField();
         campoDescricao = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        comboBox = new javax.swing.JComboBox<CategoriaDespesa>(CategoriaDespesa.values());
+        comboBox = new javax.swing.JComboBox<>();
 
         jScrollPane4.setViewportView(jTextPane4);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setText("Telefone:");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jButton1.setText("Salvar");
         jButton1.setPreferredSize(new java.awt.Dimension(80, 20));
@@ -93,6 +90,7 @@ public class DespesaForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Descrição:");
 
+        comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"Alimentação","Transporte","Residência","Saúde","Educação","Entretenimento","Outras despesas"}));
         comboBox.setSelectedIndex(-1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -162,8 +160,10 @@ public class DespesaForm extends javax.swing.JFrame {
             double valor = Double.parseDouble(campoValor.getText());
             LocalDate data = LocalDate.parse(campoData.getText(), formatter);
             String categoria = comboBox.getSelectedItem().toString();
-            Despesa despesa =  new Despesa(descricao,valor, LocalDate.now(), categoria);
+            
+            Despesa despesa =  new Despesa(descricao,valor, data, categoria);
             controle.adicionarDespesa(despesa);
+            
             String mensagem = "Despesa cadastrada com sucesso!\n" +
             	"\nDescricao: " + descricao +
                 "\nValor: " + valor +
@@ -171,6 +171,7 @@ public class DespesaForm extends javax.swing.JFrame {
                 "\nCategoria: " + categoria;
             JOptionPane.showMessageDialog(this, mensagem);
             this.setVisible(false);
+            
         } catch (java.lang.NumberFormatException e){
             JOptionPane.showMessageDialog(this, "Valor inválido");
         } catch (java.time.format.DateTimeParseException ex) {
@@ -191,13 +192,11 @@ public class DespesaForm extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField campoData;
     private javax.swing.JTextField campoDescricao;
     private javax.swing.JTextField campoValor;
-    private javax.swing.JComboBox<CategoriaDespesa> comboBox;
+    private javax.swing.JComboBox<String> comboBox;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

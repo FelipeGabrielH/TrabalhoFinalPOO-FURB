@@ -2,9 +2,7 @@ package felipe.view;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
 import javax.swing.JOptionPane;
-
 import felipe.model.ControleFinanceiro;
 import felipe.model.Despesa;
 import felipe.model.Lancamento;
@@ -220,79 +218,35 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
-
     	List<Receita> receitas = controle.listarReceitas();
-
-    	StringBuilder mensagem = new StringBuilder();
 
     	if(receitas.size() == 0) {
     		JOptionPane.showMessageDialog(this,"Não há receitas cadastradas");
     	} else {
-    		for (Receita receita : receitas) {
-    			mensagem.append("Descrição: ")
-    					.append(receita.getDescricao())
-    					.append("\nValor: R$ ")
-    					.append(receita.getValor())
-    					.append("\nCategoria: ")
-    					.append(receita.getCategoria())
-    					.append("\nData: ")
-    					.append(receita.getData().format(formatter))
-    					.append("\n\n");
-    		}
-    		JOptionPane.showMessageDialog(this,mensagem.toString());
+    		ListaReceita listaR = new ListaReceita(receitas);
+    		listaR.setVisible(true);
     	}
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
     	List<Despesa> despesas = controle.listarDespesas();
 
-        StringBuilder mensagem = new StringBuilder();
-
         if(despesas.size() == 0) {
         	JOptionPane.showMessageDialog(this,"Não há despesas cadastradas");
         } else {
-        	for (Despesa despesa : despesas) {
-        		mensagem.append("Descrição: ")
-        				.append(despesa.getDescricao())
-        				.append("\nValor: R$ ")
-        				.append(despesa.getValor())
-        				.append("\nCategoria: ")
-        				.append(despesa.getCategoria())
-        				.append("\nData: ")
-        				.append(despesa.getData().format(formatter))
-        				.append("\n\n");
-        	}
-        	JOptionPane.showMessageDialog(this,mensagem.toString());
+        	ListaDespesa listaD = new ListaDespesa(despesas);
+        	listaD.setVisible(true);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
     	List<Lancamento> lancamentos = controle.listarLancamentos();
-
-    	StringBuilder mensagem = new StringBuilder();
-
+    	
     	if(lancamentos.size() == 0) {
-    		JOptionPane.showMessageDialog(this,"Não há despesas cadastradas");
+    		JOptionPane.showMessageDialog(this,"Não há lançamentos cadastrados");
     	} else {
-    		for (Lancamento lancamento : lancamentos) {
-                if(lancamento.getCategoria().equals("SALDO DO DIA")){
-                    mensagem.append("=========================================\n")
-                            .append("💰 RESUMO DE SALDO DO DIA -> "+lancamento.getData().format(formatter) +" <-\n")
-                            .append("SALDO DO DIA : "+lancamento.getValor() + "\n")
-                            .append("=========================================\n");
-                }else{
-                    mensagem.append("Descrição: ")
-                            .append(lancamento.getDescricao())
-                            .append("\nValor: R$ ")
-                            .append(lancamento.getValor())
-                            .append("\nCategoria: ")
-                            .append (lancamento.getCategoria())
-                            .append("\nData: ")
-                            .append(lancamento.getData().format(formatter))
-                            .append("\n\n");
-                }
-    		}
-    		JOptionPane.showMessageDialog(this,mensagem.toString());
+    		ListaLancamento listaL = new ListaLancamento(lancamentos);
+    		listaL.setVisible(true);
     	}
     }//GEN-LAST:event_jButton5ActionPerformed
 

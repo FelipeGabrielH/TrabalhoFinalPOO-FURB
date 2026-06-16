@@ -1,12 +1,10 @@
 package felipe.view;
-import felipe.model.CategoriaReceita;
+
 import felipe.model.ControleFinanceiro;
 import felipe.model.Receita;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 import javax.swing.JOptionPane;
 
 /*
@@ -42,7 +40,7 @@ public class ReceitaForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane4 = new javax.swing.JScrollPane();
+    	jScrollPane4 = new javax.swing.JScrollPane();
         jTextPane4 = new javax.swing.JTextPane();
         jLabel6 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -50,7 +48,7 @@ public class ReceitaForm extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        comboBox = new javax.swing.JComboBox<CategoriaReceita>(CategoriaReceita.values());
+        comboBox = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -63,7 +61,7 @@ public class ReceitaForm extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setText("Telefone:");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jButton1.setText("Salvar");
         jButton1.setPreferredSize(new java.awt.Dimension(80, 20));
@@ -83,6 +81,7 @@ public class ReceitaForm extends javax.swing.JFrame {
         jButton2.setPreferredSize(new java.awt.Dimension(80, 20));
         jButton2.addActionListener(this::jButton2ActionPerformed);
 
+        comboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"Salário", "Décimo terceiro", "Férias", "Outras receitas"}));
         comboBox.setSelectedIndex(-1);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -160,8 +159,10 @@ public class ReceitaForm extends javax.swing.JFrame {
             double valor = Double.parseDouble(campoValor.getText());
             LocalDate data = LocalDate.parse(campoData.getText(),formatter);
             String categoria = comboBox.getSelectedItem().toString();
+            
             Receita receita =  new Receita(descricao,valor, data, categoria);
             controle.adicionarReceita(receita);
+            
             String mensagem = "Receita cadastrada com sucesso!\n" +
             	"\nDescricao: " + descricao +
                 "\nValor: " + valor +
@@ -169,6 +170,7 @@ public class ReceitaForm extends javax.swing.JFrame {
                 "\nCategoria: " + categoria;
             JOptionPane.showMessageDialog(this, mensagem);
             this.setVisible(false);
+            
         } catch (java.lang.NumberFormatException e){
             JOptionPane.showMessageDialog(this, "Valor inválido");
         } catch (java.time.format.DateTimeParseException ex) {
@@ -197,7 +199,7 @@ public class ReceitaForm extends javax.swing.JFrame {
     private javax.swing.JTextField campoData;
     private javax.swing.JTextField campoDescricao;
     private javax.swing.JTextField campoValor;
-    private javax.swing.JComboBox<CategoriaReceita> comboBox;
+    private javax.swing.JComboBox<String> comboBox;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

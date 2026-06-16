@@ -1,6 +1,5 @@
-package felipe;
+package felipe.model;
 
-import felipe.model.DatabaseConfig;
 import felipe.view.TelaPrincipal;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or

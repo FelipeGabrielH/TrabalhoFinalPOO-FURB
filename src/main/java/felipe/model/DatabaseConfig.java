@@ -29,12 +29,12 @@ public class DatabaseConfig {
             if (!arquivoDespesas.exists()) {
                 arquivoDespesas.createNewFile();
                 try (FileWriter fw = new FileWriter(arquivoDespesas)) {
-                    fw.write("id;Desc;Valoritos;DataCriacao;Categoria\n");
+                    fw.write("Desc;Valoritos;DataCriacao;Categoria\n");
                 }
             }
 
         } catch (Exception e) {
-            throw new RuntimeException("Problema ao criar o banco de dados que nao e um banco de dados", e);
+            throw new RuntimeException("Houve um problema ao criar o banco de dados :(", e);
         }
     }
 }
