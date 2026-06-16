@@ -161,7 +161,7 @@ public class DespesaForm extends javax.swing.JFrame {
             String descricao = campoDescricao.getText();
             double valor = Double.parseDouble(campoValor.getText());
             LocalDate data = LocalDate.parse(campoData.getText(), formatter);
-            String categoria = (String)comboBox.getSelectedItem();
+            String categoria = comboBox.getSelectedItem().toString();
             Despesa despesa =  new Despesa(descricao,valor, LocalDate.now(), categoria);
             controle.adicionarDespesa(despesa);
             String mensagem = "Despesa cadastrada com sucesso!\n" +

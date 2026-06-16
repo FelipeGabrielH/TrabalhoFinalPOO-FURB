@@ -159,7 +159,7 @@ public class ReceitaForm extends javax.swing.JFrame {
             String descricao = campoDescricao.getText();
             double valor = Double.parseDouble(campoValor.getText());
             LocalDate data = LocalDate.parse(campoData.getText(),formatter);
-            String categoria = (String)comboBox.getSelectedItem();
+            String categoria = comboBox.getSelectedItem().toString();
             Receita receita =  new Receita(descricao,valor, data, categoria);
             controle.adicionarReceita(receita);
             String mensagem = "Receita cadastrada com sucesso!\n" +

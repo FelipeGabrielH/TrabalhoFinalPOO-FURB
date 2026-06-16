@@ -161,16 +161,44 @@ public class ControleFinanceiro extends DatabaseConfig{
             throw new RuntimeException("O banco de dados despesas está com defeito", e);
         }
     }
-    
-    // NÃO FINALIZADO
-    // Utilizar o código da última aula para ordenar
-    // (Não salvei)
+
     public List<Lancamento> listarLancamentos() {
-    	List<Lancamento> lancamentos = new ArrayList<Lancamento>(listarReceitas());
+
+        List<Lancamento> lancamentos = new ArrayList<>();
+
+        lancamentos.addAll(listarReceitas());
         lancamentos.addAll(listarDespesas());
-        
+
         lancamentos.sort(Comparator.comparing(Lancamento::getData));
-        
-        return lancamentos;
+
+        List<Lancamento> resultado = new ArrayList<>();
+
+        LocalDate dataAtual = null;
+        double saldoDia = 0;
+
+        for (Lancamento lancamento : lancamentos) {
+
+            if (dataAtual == null) {
+                dataAtual = lancamento.getData();
+            }
+
+            if (!lancamento.getData().equals(dataAtual)) {
+
+                resultado.add(new SaldoDoDia(dataAtual, saldoDia, "SALDO DO DIA"));
+
+                saldoDia = 0;
+                dataAtual = lancamento.getData();
+            }
+
+            resultado.add(lancamento);
+
+            saldoDia += lancamento.getValor();
+        }
+
+        if (dataAtual != null) {
+            resultado.add(new SaldoDoDia(dataAtual, saldoDia, "SALDO DO DIA"));
+        }
+
+        return resultado;
     }
 }
