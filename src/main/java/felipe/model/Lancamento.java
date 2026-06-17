@@ -106,4 +106,29 @@ public abstract class Lancamento {
 
         this.categoria = categoria;
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o ) {
+            return true;
+        }
+        if(o.getClass() != this.getClass()) {
+            return false;
+        }
+
+        Lancamento outro = (Lancamento) o;
+
+        if (!outro.getDescricao().equals(this.descricao)) {
+            return false;
+        }
+        if(outro.getValor() != this.valor) {
+            return false;
+        }
+        if (!outro.getData().equals(this.data)) {
+            return false;
+        }
+        if (!outro.getCategoria().equals(this.categoria)) {
+            return false;
+        }
+        return true;
+    }
 }

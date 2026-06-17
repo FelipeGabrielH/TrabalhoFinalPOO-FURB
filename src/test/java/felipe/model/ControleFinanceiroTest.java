@@ -2,7 +2,6 @@ package felipe.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
@@ -15,28 +14,46 @@ class ControleFinanceiroTest {
 
 	@Test
 	void testAdicionarReceita() {
+		DataBaseConfig.inicializarBanco();
 		Receita receita = new Receita("Salário", 1050.00, LocalDate.of(2026, 2, 5), "Salário");
+		boolean armazenou = false;
 		try {
 			controle.adicionarReceita(receita);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		File arquivoReceitas = new File("src/main/resources/database/receitas.csv");
-		Assert.assertTrue(arquivoReceitas.exists());
+		List<Receita> receitas = controle.listarReceitas();
+
+		for(Receita r : receitas) {
+			if(receita.equals(r)) {
+				armazenou = true;
+			}
+		}
+		
+		Assert.assertTrue(armazenou);
 	}
 	
 	@Test
 	void testAdicionarDespesa() {
 		Despesa despesa = new Despesa("Compras", 250.00, LocalDate.of(2026, 2, 6), "Alimentação");
+		boolean armazenou = false;
 		try {
 			controle.adicionarDespesa(despesa);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		File arquivoDespesas = new File("src/main/resources/database/despesas.csv");
-		Assert.assertTrue(arquivoDespesas.exists());
+		
+		List<Despesa> despesas = controle.listarDespesas();
+
+		for(Despesa d : despesas) {
+			if(despesa.equals(d)) {
+				armazenou = true;
+			}
+		}
+		
+		Assert.assertTrue(armazenou);
 	}
 	
 	@Test
