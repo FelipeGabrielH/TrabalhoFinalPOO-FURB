@@ -72,7 +72,7 @@ public class ListaLancamento extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Descrição", "Valor", "Data", "Categoria"
+                "Descrição", "Valor", "Categoria", "Data"
             }
         ));
         tabela.setShowGrid(true);

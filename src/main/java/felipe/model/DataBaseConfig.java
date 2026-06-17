@@ -3,7 +3,7 @@ package felipe.model;
 import java.io.File;
 import java.io.FileWriter;
 
-public class DatabaseConfig {
+public class DataBaseConfig {
     public static final String PATH_DATABASE_RECEITAS = "src/main/resources/database/receitas.csv";
     public static final String PATH_DATABASE_DESPESAS = "src/main/resources/database/despesas.csv";
 
@@ -22,14 +22,14 @@ public class DatabaseConfig {
             if (!arquivoReceitas.exists()) {
                 arquivoReceitas.createNewFile();
                 try (FileWriter fw = new FileWriter(arquivoReceitas)) {
-                    fw.write("Desc;Valoritos;DataCriacao;Categoria\n");
+                    fw.write("Desc;Valor;DataCriacao;Categoria\n");
                 }
             }
 
             if (!arquivoDespesas.exists()) {
                 arquivoDespesas.createNewFile();
                 try (FileWriter fw = new FileWriter(arquivoDespesas)) {
-                    fw.write("Desc;Valoritos;DataCriacao;Categoria\n");
+                    fw.write("Desc;Valor;DataCriacao;Categoria\n");
                 }
             }
 

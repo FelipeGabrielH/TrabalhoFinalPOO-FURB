@@ -6,7 +6,7 @@ import felipe.view.TelaPrincipal;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        DatabaseConfig.inicializarBanco();
+        DataBaseConfig.inicializarBanco();
         javax.swing.SwingUtilities.invokeLater(() -> {
             new TelaPrincipal().setVisible(true);
         });

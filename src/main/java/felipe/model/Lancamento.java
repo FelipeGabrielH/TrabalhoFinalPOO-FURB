@@ -8,16 +8,17 @@ public abstract class Lancamento {
     private LocalDate data;
     private String categoria;
 
-    public Lancamento(String descricao, double valoritos, LocalDate date, String categoria){
-        this.descricao = descricao;
-        this.valor = valoritos;
-        this.data = date;
-        this.categoria = categoria;
+    public Lancamento(String descricao, double valor, LocalDate data, String categoria){
+        setDescricao(descricao);
+        setValor(valor);
+        setData(data);
+        setCategoria(categoria);
     }
 
     public double getValor(){
         return valor;
     }
+    
     public LocalDate getData(){
         return data;
     }
@@ -28,6 +29,38 @@ public abstract class Lancamento {
 
 	public String getCategoria() {
 		return categoria;
+	}
+	
+	private void setDescricao(String descricao) {
+		if (descricao == null || descricao.isBlank() || descricao.isEmpty()) {
+			throw new IllegalArgumentException("Descrição inválida");
+		}
+		
+		this.descricao = descricao;
+	}
+	
+	private void setValor(double valor) {
+		if (valor == 0) {
+			throw new NumberFormatException("Valor inválido");
+		}
+		
+		this.valor = valor;
+	}
+	
+	private void setData(LocalDate data) {
+		if (data == null) {
+			throw new IllegalArgumentException("Data inválida");
+		}
+		
+		this.data = data;
+	}
+	
+	private void setCategoria(String categoria) {
+		if (categoria == null || categoria.isBlank() || categoria.isEmpty()) {
+			throw new IllegalArgumentException("Categoria inválida");
+		}
+		
+		this.categoria = categoria;
 	}
 
 }

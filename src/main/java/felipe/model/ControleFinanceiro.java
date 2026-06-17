@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class ControleFinanceiro extends DatabaseConfig{
+public class ControleFinanceiro extends DataBaseConfig{
 	private double saldoAtual;
 	private double saldoTotal;
 	private List<Receita> receitas = new ArrayList<>();
@@ -38,7 +38,7 @@ public class ControleFinanceiro extends DatabaseConfig{
         	}
         }
         
-        saldoAtual = somatorio - diminuitorio;
+        saldoAtual = somatorio + diminuitorio;
 	}
 
 	public double getSaldoTotal() {
@@ -59,7 +59,7 @@ public class ControleFinanceiro extends DatabaseConfig{
         	diminuitorio += d.getValor();
         }
         
-        saldoTotal = somatorio - diminuitorio;
+        saldoTotal = somatorio + diminuitorio;
 	}
 
     public void adicionarReceita(Receita receita) throws IOException {
@@ -183,22 +183,21 @@ public class ControleFinanceiro extends DatabaseConfig{
             }
 
             //Sempre que a data do lançamento for diferente da data do lançamento anterior,
-            //É criado o saldo do dia e a dataAtual é atualizada.
+            //é criado o saldo do dia e a dataAtual é atualizada.
             if (!lancamento.getData().equals(dataAtual)) {
 
-                resultado.add(new SaldoDoDia(dataAtual, saldoDia, "SALDO DO DIA"));
+                resultado.add(new SaldoDoDia(saldoDia, dataAtual));
 
                 dataAtual = lancamento.getData();
             }
-
+            
             resultado.add(lancamento);
-
             saldoDia += lancamento.getValor();
         }
 
-        //Adiciona o lançamento normalmente
+        //Cria o saldo do dia para o último dia
         if (dataAtual != null) {
-            resultado.add(new SaldoDoDia(dataAtual, saldoDia, "SALDO DO DIA"));
+            resultado.add(new SaldoDoDia(saldoDia, dataAtual));
         }
 
         return resultado;

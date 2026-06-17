@@ -173,10 +173,16 @@ public class ReceitaForm extends javax.swing.JFrame {
             
         } catch (java.lang.NumberFormatException e){
             JOptionPane.showMessageDialog(this, "Valor inválido");
+            e.printStackTrace();
         } catch (java.time.format.DateTimeParseException ex) {
         	JOptionPane.showMessageDialog(this, "Data deve estar no formato dd/MM/yyyy");
-        } catch (IOException e) {
+        	ex.printStackTrace();
+        } catch (java.lang.IllegalArgumentException | java.lang.NullPointerException exc) {
+        	JOptionPane.showMessageDialog(this, "Todos os campos devem estar preenchidos");
+        	exc.printStackTrace();
+        } catch (IOException exce) {
         	JOptionPane.showMessageDialog(this, "Um erro inesperado ocorreu :(");
+        	exce.printStackTrace();
 		}
     }//GEN-LAST:event_jButton1ActionPerformed
 
