@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 /**
  * Representa um lançamento do tipo Receita no sistema financeiro.
- * <p>
  * Esta classe estende {@link Lancamento} e representa as entradas positivas
  * de capital no fluxo de caixa (como salários, rendimentos e vendas).
  */

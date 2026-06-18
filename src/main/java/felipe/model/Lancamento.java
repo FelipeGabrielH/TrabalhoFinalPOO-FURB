@@ -106,6 +106,11 @@ public abstract class Lancamento {
 
         this.categoria = categoria;
     }
+    
+    /**
+     * Altera o método equals para comparar os valores de dois lançamentos.
+     * * @return Um valor boolean representando se os lançamentos são iguais ou não.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o ) {
