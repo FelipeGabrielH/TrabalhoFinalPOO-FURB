@@ -76,10 +76,6 @@ public abstract class Lancamento {
      * @throws NumberFormatException Se o valor informado for exatamente igual a zero.
      */
     private void setValor(double valor) {
-        if (valor == 0) {
-            throw new NumberFormatException("Valor inválido");
-        }
-
         this.valor = valor;
     }
 

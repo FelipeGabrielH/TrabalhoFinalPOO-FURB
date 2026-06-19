@@ -56,7 +56,7 @@ public class ControleFinanceiro extends DataBaseConfig {
         }
 
         // CORREÇÃO: Subtrai as despesas do somatório de receitas
-        saldoAtual = somatorio - diminuitorio;
+        saldoAtual = somatorio + diminuitorio;
     }
 
     /**
@@ -85,7 +85,7 @@ public class ControleFinanceiro extends DataBaseConfig {
             diminuitorio += d.getValor();
         }
 
-        saldoTotal = somatorio - diminuitorio;
+        saldoTotal = somatorio + diminuitorio;
     }
 
     /**
