@@ -19,5 +19,4 @@ class DataBaseConfigTest {
         File arquivoDespesas = new File("src/main/resources/database/despesas.csv");
         Assert.assertTrue(arquivoDespesas.exists());
 	}
-
 }

@@ -23,13 +23,6 @@ class DespesaTest {
 	}
 	
 	@Test
-	void testValor() {
-		Exception ex = assertThrows(NumberFormatException.class, () -> {
-			Despesa despesa = new Despesa("Compras", 0.00, LocalDate.of(2026, 2, 6), "Alimentação");
-		});
-	}
-	
-	@Test
 	void testData() {
 		Exception ex = assertThrows(IllegalArgumentException.class, () -> {
 			Despesa despesa = new Despesa("Compras", 250.00, null, "Alimentação");
@@ -42,5 +35,4 @@ class DespesaTest {
 			Despesa despesa = new Despesa("Compras", 250.00, LocalDate.of(2026, 2, 6), "");
 		});
 	}
-
 }

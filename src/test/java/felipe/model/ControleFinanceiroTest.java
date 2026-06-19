@@ -1,7 +1,5 @@
 package felipe.model;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
@@ -14,8 +12,7 @@ class ControleFinanceiroTest {
 
 	@Test
 	void testAdicionarReceita() {
-		DataBaseConfig.inicializarBanco();
-		Receita receita = new Receita("Salário", 1050.00, LocalDate.of(2026, 2, 5), "Salário");
+		Receita receita = new Receita("Salário", 1230.00, LocalDate.of(2026, 2, 5), "Salário");
 		boolean armazenou = false;
 		try {
 			controle.adicionarReceita(receita);
@@ -58,17 +55,16 @@ class ControleFinanceiroTest {
 	
 	@Test
 	void testListarReceitas() {
-		assertInstanceOf(List.class, controle.listarReceitas());
+		Assert.assertTrue(controle.listarReceitas().size() > 0);;
 	}
 	
 	@Test
 	void testListarDespesas() {
-		assertInstanceOf(List.class, controle.listarDespesas());
+		Assert.assertTrue(controle.listarDespesas().size() > 0);
 	}
 	
 	@Test
 	void testListarLancamentos() {
-		assertInstanceOf(List.class, controle.listarLancamentos());
+		Assert.assertTrue(controle.listarLancamentos().size() > 0);
 	}
-
 }

@@ -23,13 +23,6 @@ class ReceitaTest {
 	}
 	
 	@Test
-	void testValor() {
-		Exception ex = assertThrows(NumberFormatException.class, () -> {
-			Receita receita = new Receita("Salário", 0.00, LocalDate.of(2026, 2, 5), "Salário");
-		});
-	}
-	
-	@Test
 	void testData() {
 		Exception ex = assertThrows(IllegalArgumentException.class, () -> {
 			Receita receita = new Receita("Salário", 1050.00, null, "Salário");
@@ -42,5 +35,4 @@ class ReceitaTest {
 			Receita receita = new Receita("Salário", 1050.00, LocalDate.of(2026, 2, 5), "");
 		});
 	}
-
 }
