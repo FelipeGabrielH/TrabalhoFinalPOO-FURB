@@ -108,7 +108,7 @@ public class ControleFinanceiro extends DataBaseConfig {
         bw.write(linha);
         bw.newLine();
         bw.close();
-    }
+        fw.close();    }
 
     /**
      * Adiciona uma nova despesa à lista em memória e a persiste no arquivo de banco de dados.
@@ -131,6 +131,7 @@ public class ControleFinanceiro extends DataBaseConfig {
         bw.write(linha);
         bw.newLine();
         bw.close();
+        fw.close();
     }
 
     /**
